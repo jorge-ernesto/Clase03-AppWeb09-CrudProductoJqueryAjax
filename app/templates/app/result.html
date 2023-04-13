@@ -1,0 +1,39 @@
+
+<table class="table table-bordered">
+    <thead class="alert-success">
+        <tr>
+            <th>Descripcion</th>
+            <th>Categoria</th>
+            <th>Fecha</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for el in productos %}
+        <tr>
+            <td>{{ el.producto }}</td>
+            <!-- <td>{{ el.categoria }}</td> -->
+            <td>
+                {% if el.categoria == '1' %} Bebidas {% endif %}
+                {% if el.categoria == '2' %} Abarrotes {% endif %}
+                {% if el.categoria == '3' %} Lacteos {% endif %}
+                {% if el.categoria == '4' %} Limpieza {% endif %}
+
+            </td>
+            <td>{{ el.fecha }}</td>
+
+            <td>{{ el.precio }}</td>
+            <td>{{ el.stock }}</td>
+
+            <td>
+                <center>
+                    <a class="btn btn-sm btn-warning edit" name="{{ el.id }}">Editar</a>
+                    <a class="btn btn-sm btn-danger delete" name="{{ el.id }}">Eliminar</a>
+                </center>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
