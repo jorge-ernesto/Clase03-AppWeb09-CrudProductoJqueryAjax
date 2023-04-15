@@ -1,6 +1,9 @@
-//sentencia jquery se ejecuta cuando la pagina esta visible
-$(document).ready(function () {
+// Esperar a que el documento se haya cargado
+$(document).ready(function () { // $(function () {
+
+    // Verificar si el elemento con el id "result" existe en el DOM.
     if ($('#result') != null) {
+        console.log('Cargar Read')
         Read();
     }
 
@@ -18,7 +21,7 @@ $(document).ready(function () {
         } else {
             // uso de ajax
             $.ajax({
-                url: 'create',
+                url: '/create',
                 type: 'POST',
                 data: {
                     producto: $producto,
@@ -60,7 +63,7 @@ $(document).ready(function () {
         } else {
             $id = $('#producto_id').val();
             $.ajax({
-                url: 'update/' + $id,
+                url: '/update/' + $id,
                 type: 'POST',
                 data: {
                     categoria: $categoria,
@@ -80,15 +83,19 @@ $(document).ready(function () {
 
     //funcion delete
     $(document).on('click', '.delete', function () {
+        const confirmacion = confirm('¿Desea eliminar el registro?');
+        if (!confirmacion) {
+            return false;
+        }
+
         $id = $(this).attr('name');
         $.ajax({
-            url: 'delete/' + $id,
+            url: '/delete/' + $id,
             type: 'POST',
             data: {
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             },
             success: function () {
-                alert("Desea Eliminar producto ?");
                 Read();
             }
         });
@@ -99,7 +106,7 @@ $(document).ready(function () {
 //funcion read
 function Read() {
     $.ajax({
-        url: 'read',
+        url: '/read',
         type: 'POST',
         async: false,
         data: {
